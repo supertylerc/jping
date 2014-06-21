@@ -1,3 +1,8 @@
+# Deprecation Notice #
+
+This script will be deprecated.  It will be rewritten in Python to take advantage of
+the [junos-eznc](https://github.com/Juniper/py-junos-eznc) module.
+
 # Installation #
 1.  Change `user` and `pass` in the `creds` file to your username and password.
 2.  Make `jping.pl` executable (in Linux/OS X/BSD, open a terminal and type `chmod 700 jping.pl`).
