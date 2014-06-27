@@ -50,3 +50,7 @@ Tyler Christiansen
 ## License
 
 BSD 2-Clause
+
+[1]: https://www.python.org/ "Python"
+[2]: https://github.com/Juniper/py-junos-eznc "py-junos-eznc"
+[3]: https://docs.python.org/2/library/getpass.html "Python getpass"
