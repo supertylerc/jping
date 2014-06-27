@@ -42,6 +42,22 @@ ln -s $HOME/src/jping/jping.py $HOME/bin/jping
 cd
 ```
 
+### Updating
+
+I recommend that you update regularly.  I run a daily cronjob that
+updates all of the repositories I use.  An example:
+
+```bash
+15 0 * * * cd /Users/tyler/src/jping && git pull --no-edit --quiet > /dev/null 2>&1
+```
+
+Of course, this only works if your machine is actually _on_ at 00:15, so
+you'll need to manually update if it's not:
+
+```bash
+cd $HOME/src/jping && git pull --no-edit --quiet
+```
+
 ## Usage
 
 `jping` requires two arguments: a hostname (`-r`) and a username (`-u`).
