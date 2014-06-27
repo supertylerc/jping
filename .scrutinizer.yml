@@ -72,7 +72,6 @@ checks:
         format_unnecessary_semicolon: true
         imports_cyclic_import: true
         imports_deprecated_module: true
-        imports_import_error: true
         exceptions_notimplemented_raised: true
         exceptions_pointless_except: true
         exceptions_raising_bad_type: true

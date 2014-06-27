@@ -23,8 +23,8 @@ def parse():
     if args.password is not None:
         args.password = getpass.getpass()
     return args
-def connect(r, u, p):
-    rtr = Device(host=r, user=u, password=p)
+def connect(hostname, username, passwd):
+    rtr = Device(host=hostname, user=username, password=passwd)
     rtr.open()
     return rtr
 def get_arp(rtr):
@@ -41,12 +41,12 @@ def get_arp(rtr):
             host=arp_json[entry]['ip_address'], count='3', rapid=True))
 
     for entry in ping_results:
-        ip = entry.findtext('target-ip').replace('\n', '')
-        results[ip] = {}
+        ip_address = entry.findtext('target-ip').replace('\n', '')
+        results[ip_address] = {}
         if entry.findtext('ping-success') is not None:
-            results[ip]['success'] = True
+            results[ip_address]['success'] = True
         else:
-            results[ip]['success'] = False
+            results[ip_address]['success'] = False
     return results
 
 main()
