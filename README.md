@@ -1,5 +1,24 @@
 # jping [![Build Status](https://travis-ci.org/supertylerc/jping.svg?branch=master)](https://travis-ci.org/supertylerc/jping) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/supertylerc/jping/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/supertylerc/jping/?branch=master)
 
+# Rewritten!
+
+`jping` was initially a flexible [Perl][4] script that parsed
+configuration and pinged all possible IP addresses in all configured
+subnets in all configured routing-instances.
+
+Doing things this way was expensive, and excluding routing-instances was
+not exactly easy.  There's also the problem of screen-scraping.  It's
+possible (however unlikely) that the output could change, breaking the
+script.
+
+For this reason, `jping` has been rewritten in Python and takes
+advantage of `py-junos-eznc` to communicate with Juniper Networks
+devices using [NETCONF][5].  This version has been tagged as v0.2.0, and
+it is now the preferred version of `jping`.
+
+If you're still looking for the original `jping` written in perl, you
+can find it in the [v0.1.0][6] tag.
+
 ## About
 
 `jping` is a [python][1] script that connects to devices, retrieves the
@@ -54,3 +73,6 @@ BSD 2-Clause
 [1]: https://www.python.org/ "Python"
 [2]: https://github.com/Juniper/py-junos-eznc "py-junos-eznc"
 [3]: https://docs.python.org/2/library/getpass.html "Python getpass"
+[4]: http://www.perl.org "Perl"
+[5]: https://en.wikipedia.org/wiki/NETCONF "NETCONF"
+[6]: https://github.com/supertylerc/jping/tree/v0.1.0 "jping Perl"
