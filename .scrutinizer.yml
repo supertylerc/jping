@@ -2,12 +2,12 @@
 imports:
   - python
 tools:
-  python_analyzer: true
+  python_analyzer:
     config:
       metrics: true
       duplication_detector:
         enabled: true
-  pylint: true
+  pylint:
     python_version: 2
 checks:
     python:
