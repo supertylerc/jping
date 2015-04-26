@@ -26,10 +26,10 @@ def main():
         connection_args = dict(user=SETTINGS['user'], password=SETTINGS['passwd'])
         NetworkElement = VENDORS[host['vendor']]
         with NetworkElement(host['hostname'], **connection_args) as rtr:
-            if args.check == 'post':
+            if args.check == 'post' or args.post:
                 table = post_check(rtr)
                 print table
-            else:
+            elif args.check == 'pre' or args.pre:
                 update_arp_database(rtr)
 
 
