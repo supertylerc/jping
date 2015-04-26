@@ -21,7 +21,8 @@ def main():
     """
     args = utilities.Utils.parse_arguments()
     for host in SETTINGS['routers']:
-        rtr = None
+        if host['vendor'] not in VENDORS:
+            raise AttributeError('Unsupported vendor: {}'.format(host['vendor']))
         connection_args = dict(user=SETTINGS['user'], password=SETTINGS['passwd'])
         # This definitely isn't very clean or obvious...there must be a better way!
         with VENDORS[host['vendor']](host['hostname'], **connection_args) as rtr:
@@ -43,8 +44,6 @@ def main():
                 print table
             else:
                 update_arp_database(rtr)
-        if rtr is None:
-            raise AttributeError('Unsupported vendor: {}'.format(host['vendor']))
 
 
 def update_arp_database(rtr):
