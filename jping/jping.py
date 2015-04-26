@@ -21,32 +21,29 @@ def main():
     args = utilities.Utils.parse_arguments()
     for host in SETTINGS['routers']:
         rtr = None
+        connection_args = dict(user=SETTINGS['user'], password=SETTINGS['passwd'])
         if host['vendor'] == 'juniper':
-            rtr = router.Juniper(host['hostname'],
-                                 user=SETTINGS['user'],
-                                 password=SETTINGS['passwd'])
-
+            with router.Juniper(host['hostname'], **connection_args) as rtr:
+                if args.check == 'post':
+                    query = 'SELECT * FROM jping WHERE hostname=?'
+                    pre_results = DATABASE.query(query, [rtr.hostname])
+                    pre_results = pre_results.fetchall()
+                    heading = ['Router', 'Interface', 'IP Address',
+                               'Success on First Run', 'Success on Second Run']
+                    table = PrettyTable(heading)
+                    for result in pre_results:
+                        post_result = rtr.ping(result['ip_address'])
+                        hostname = result['hostname']
+                        interface = result['interface']
+                        ip_address = result['ip_address']
+                        pre_result = bool(result['ping_results'])
+                        row = [hostname, interface, ip_address, pre_result, post_result]
+                        table.add_row(row)
+                    print table
+                else:
+                    update_arp_database(rtr)
         if rtr is None:
             raise AttributeError('Unsupported vendor: {}'.format(host['vendor']))
-
-        if args.check == 'post':
-            query = 'SELECT * FROM jping WHERE hostname=?'
-            pre_results = DATABASE.query(query, [rtr.hostname])
-            pre_results = pre_results.fetchall()
-            heading = ['Router', 'Interface', 'IP Address',
-                       'Success on First Run', 'Success on Second Run']
-            table = PrettyTable(heading)
-            for result in pre_results:
-                post_result = rtr.ping(result['ip_address'])
-                hostname = result['hostname']
-                interface = result['interface']
-                ip_address = result['ip_address']
-                pre_result = bool(result['ping_results'])
-                row = [hostname, interface, ip_address, pre_result, post_result]
-                table.add_row(row)
-            print table
-        else:
-            update_arp_database(rtr)
 
 
 def update_arp_database(rtr):
