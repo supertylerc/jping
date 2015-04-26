@@ -13,6 +13,7 @@ You need:
 
 * [py-junos-eznc][2]
 * [prettytable][7]
+* [fabric][8]
 
 ### Installing
 
@@ -28,8 +29,9 @@ cd
 
 You want to update `etc/settings.yml` to include your credentials and list of
 routers.  You must include the `vendor` on the list of routers.  For now, the
-only supported vendor is `juniper`.  You can add support for additional vendors.
-Follow the patterns in `jping.py`, `etc/settings.yml`, and `lib/router.py`.
+only supported vendors are `juniper` and `ios`.  You can add support for
+additional vendors.  Follow the patterns in `jping.py`, `etc/settings.yml`, and
+`lib/router.py`.
 
 ### Updating
 
@@ -61,12 +63,12 @@ cd $HOME/src/jping && git pull --no-edit --quiet
 Example:
 
 ```bash
-tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
-❯ ./jping.py --pre                                                                                         [23:03:54]
->>> elapsed time 45s
+tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
+❯ ./jping.py --pre                                                                                                               [12:24:11]
+>>> elapsed time 51s
 
-tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
-❯ ./jping.py --post                                                                                        [23:04:58]
+tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
+❯ ./jping.py --post                                                                                                              [12:25:05]
 +---------------+------------+---------------+----------------------+-----------------------+
 |     Router    | Interface  |   IP Address  | Success on First Run | Success on Second Run |
 +---------------+------------+---------------+----------------------+-----------------------+
@@ -75,9 +77,20 @@ tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
 | 192.168.0.151 | ge-0/0/2.0 |  192.168.0.7  |         True         |          True         |
 | 192.168.0.151 | ge-0/0/1.0 | 192.168.0.169 |        False         |         False         |
 +---------------+------------+---------------+----------------------+-----------------------+
++---------------+------------------+---------------+----------------------+-----------------------+
+|     Router    |    Interface     |   IP Address  | Success on First Run | Success on Second Run |
++---------------+------------------+---------------+----------------------+-----------------------+
+| 192.168.0.100 | GigabitEthernet1 |    10.0.2.2   |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet1 |    10.0.2.3   |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet1 |   10.0.2.15   |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet3 |   172.16.0.0  |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet2 |  192.168.0.1  |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet2 |  192.168.0.7  |         True         |          True         |
+| 192.168.0.100 | GigabitEthernet2 | 192.168.0.100 |         True         |          True         |
++---------------+------------------+---------------+----------------------+-----------------------+
 
-tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
-❯                                                                                                           [23:05:03]
+tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
+❯                                                                                                                                [12:25:15]
 ```
 
 > Don't be too alarmed by the amount of time it took to run the pre-check.  The
@@ -131,3 +144,4 @@ BSD 2-Clause
 [5]: https://en.wikipedia.org/wiki/NETCONF "NETCONF"
 [6]: https://github.com/supertylerc/jping/tree/v0.1.0 "jping Perl"
 [7]: https://pypi.python.org/pypi/PrettyTable "prettytable"
+[8]: http://www.fabfile.org "Fabric"
