@@ -10,7 +10,7 @@ from prettytable import PrettyTable
 
 DATABASE = utilities.DBase()
 SETTINGS = utilities.Utils.parse_yaml(path.realpath('etc/settings.yml'))
-VENDORS = dict(juniper=router.Juniper)
+VENDORS = dict(juniper=router.Juniper, ios=router.CiscoIos)
 
 
 def main():
