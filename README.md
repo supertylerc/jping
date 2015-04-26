@@ -49,18 +49,24 @@ cd $HOME/src/jping && git pull --no-edit --quiet
 
 ## Usage
 
-`jping` requires one arguments: a check type (`-c` or `--check`).  The value
-passed to this argument can be either `pre` or `post`.
+`jping` has two flags.  You must specify one and only one flag.  The flags are:
+
+* `--pre`: This is for pre-maintenance checks.  This pings all ARP entries and writes the results to a database.
+* `--post`: This is for post-maintenance checks.  This reads the database and pings all entries, creating a report at the end.
+
+> Note: There is still the old (v0.3.1 and older) option of specify
+> `--check pre` or `--check post`.  This is deprecated as of v0.3.2, though, and
+> will be removed completely in v0.4.0.
 
 Example:
 
 ```bash
 tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
-❯ ./jping.py -c pre                                                                                         [23:03:54]
+❯ ./jping.py --pre                                                                                         [23:03:54]
 >>> elapsed time 45s
 
 tyler@deathstar ~/j/jping > feature/JPING-3-object-oriented-design ⁝ ⬆ ✱
-❯ ./jping.py -c post                                                                                        [23:04:58]
+❯ ./jping.py --post                                                                                        [23:04:58]
 +---------------+------------+---------------+----------------------+-----------------------+
 |     Router    | Interface  |   IP Address  | Success on First Run | Success on Second Run |
 +---------------+------------+---------------+----------------------+-----------------------+
