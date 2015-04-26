@@ -1,0 +1,9 @@
+---
+
+user: tyler
+passwd: changeme
+routers:
+  - hostname: 192.168.0.151
+    vendor: juniper
+  - hostname: sidious.tylerc.me
+    vendor: juniper
