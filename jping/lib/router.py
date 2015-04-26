@@ -34,6 +34,12 @@ class Router(object):
         self.connection = self._connect()
         self.password = base64.b64encode(self.password)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exctype, excisnt, exctb):
+        self.connection.close()
+
     def _connect(self):
         """Connect to a device.
 
