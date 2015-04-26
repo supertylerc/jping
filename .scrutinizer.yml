@@ -82,7 +82,7 @@ checks:
             indentation: '4 spaces'
         format_bad_whitespace: true
         format_line_too_long:
-            max_length: '80'
+            max_length: '100'
         format_lowercase_l_suffix: true
         classes_super_init_not_called: true
         classes_valid_slots: true
