@@ -63,23 +63,19 @@ cd $HOME/src/jping && git pull --no-edit --quiet
 Example:
 
 ```bash
-tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
-❯ ./jping.py --pre                                                                                                               [12:24:11]
->>> elapsed time 51s
+tyler@deathstar ~/j/jping > bugfix/JPING-10-the-output-of-post-should-be-a-single ⁝ ✚ ✱
+❯ ./jping.py --pre                                                                                                               [13:06:55]
+>>> elapsed time 50s
 
-tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
-❯ ./jping.py --post                                                                                                              [12:25:05]
-+---------------+------------+---------------+----------------------+-----------------------+
-|     Router    | Interface  |   IP Address  | Success on First Run | Success on Second Run |
-+---------------+------------+---------------+----------------------+-----------------------+
-| 192.168.0.151 | ge-0/0/0.0 |    10.0.2.2   |         True         |          True         |
-| 192.168.0.151 | ge-0/0/0.0 |    10.0.2.3   |         True         |          True         |
-| 192.168.0.151 | ge-0/0/2.0 |  192.168.0.7  |         True         |          True         |
-| 192.168.0.151 | ge-0/0/1.0 | 192.168.0.169 |        False         |         False         |
-+---------------+------------+---------------+----------------------+-----------------------+
+tyler@deathstar ~/j/jping > bugfix/JPING-10-the-output-of-post-should-be-a-single ⁝ ✚ ✱
+❯ ./jping.py --post                                                                                                              [13:07:48]
 +---------------+------------------+---------------+----------------------+-----------------------+
 |     Router    |    Interface     |   IP Address  | Success on First Run | Success on Second Run |
 +---------------+------------------+---------------+----------------------+-----------------------+
+| 192.168.0.151 |    ge-0/0/0.0    |    10.0.2.2   |         True         |          True         |
+| 192.168.0.151 |    ge-0/0/0.0    |    10.0.2.3   |         True         |          True         |
+| 192.168.0.151 |    ge-0/0/2.0    |  192.168.0.7  |         True         |          True         |
+| 192.168.0.151 |    ge-0/0/1.0    | 192.168.0.169 |        False         |         False         |
 | 192.168.0.100 | GigabitEthernet1 |    10.0.2.2   |         True         |          True         |
 | 192.168.0.100 | GigabitEthernet1 |    10.0.2.3   |         True         |          True         |
 | 192.168.0.100 | GigabitEthernet1 |   10.0.2.15   |         True         |          True         |
@@ -89,8 +85,8 @@ tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ �
 | 192.168.0.100 | GigabitEthernet2 | 192.168.0.100 |         True         |          True         |
 +---------------+------------------+---------------+----------------------+-----------------------+
 
-tyler@deathstar ~/j/jping > feature/JPING-9-add-support-for-cisco-ios ⁝ ⬆ ✱
-❯                                                                                                                                [12:25:15]
+tyler@deathstar ~/j/jping > bugfix/JPING-10-the-output-of-post-should-be-a-single ⁝ ✚ ✱
+❯                                                                                                                                [13:07:58]
 ```
 
 > Don't be too alarmed by the amount of time it took to run the pre-check.  The
