@@ -2,6 +2,7 @@
 """
 
 from argparse import ArgumentParser
+from argparse import ArgumentTypeError
 import os
 import sqlite3
 import yaml
@@ -18,9 +19,20 @@ class Utils(object):
         """
 
         parser = ArgumentParser(description="Ping all ARP entries.")
-        parser.add_argument("-c", "--check",
-                            help="`pre` or `post`", required=True)
-        return parser.parse_args()
+        parser.add_argument("-c", "--check", help="`pre` or `post`")
+        parser.add_argument('-p', '--pre', action='store_true',
+                            help='This script should be run before a maintenance.')
+        parser.add_argument('-a', '--post', action='store_true',
+                            help='This script should be run after a maintenance.')
+        args = parser.parse_args()
+        # These checks should be removed in v0.4.0 when `--check` is removed.
+        if args.pre and args.post:
+            raise ArgumentTypeError('You cannot specify both `--pre` and --`post`.')
+        if args.pre and args.check or args.post and args.check:
+            raise ArgumentTypeError('Do not use the old style `--check` with `--pre` or `--post`.')
+        if not args.pre and not args.post and not args.check:
+            raise ArgumentTypeError('You must specify either `--pre` or `--post`.')
+        return args
 
     @staticmethod
     def parse_yaml(yaml_file):
