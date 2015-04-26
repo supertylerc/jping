@@ -24,8 +24,8 @@ def main():
         if host['vendor'] not in VENDORS:
             raise AttributeError('Unsupported vendor: {}'.format(host['vendor']))
         connection_args = dict(user=SETTINGS['user'], password=SETTINGS['passwd'])
-        # This definitely isn't very clean or obvious...there must be a better way!
-        with VENDORS[host['vendor']](host['hostname'], **connection_args) as rtr:
+        NetworkElement = VENDORS[host['vendor']]
+        with NetworkElement(host['hostname'], **connection_args) as rtr:
             if args.check == 'post':
                 query = 'SELECT * FROM jping WHERE hostname=?'
                 pre_results = DATABASE.query(query, [rtr.hostname])
