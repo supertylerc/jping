@@ -61,12 +61,16 @@ def update_arp_database(rtr):
     :type rtr: ``Device``
     """
     arp_table = rtr.arp_table
+    entries = list()
     for entry in arp_table:
         entry['ping_results'] = rtr.ping(entry['ip_address'])
-        columns = ', '.join(entry.keys())
-        placeholders = ', '.join('?' * len(entry))
-        query = 'INSERT OR REPLACE INTO jping ({}) VALUES ({})'.format(columns, placeholders)
-        DATABASE.query(query, entry.values())
+        entries.append(tuple(entry.values()))
+
+    single_entry = entries[0]
+    columns = ', '.join(arp_table[0].keys())
+    placeholders = ', '.join('?' * len(single_entry))
+    query = 'INSERT OR REPLACE INTO jping ({}) VALUES ({})'.format(columns, placeholders)
+    DATABASE.query(query, entries, many=True)
 
 
 main()
