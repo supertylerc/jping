@@ -42,8 +42,7 @@ def main():
 def post_check(rtr, table):
     query = 'SELECT * FROM jping WHERE hostname=?'
     pre_results = DATABASE.query(query, [rtr.hostname])
-    pre_results = pre_results.fetchall()
-    for result in pre_results:
+    for result in pre_results.fetchall():
         post_result = rtr.ping(result['ip_address'])
         hostname = result['hostname']
         interface = result['interface']
