@@ -20,10 +20,8 @@ def main():
     Connects to a Juniper router and queries the ARP table (pre-chagne) or database (post-change).
     """
     args = utilities.Utils.parse_arguments()
-    if args.check == 'post' or args.post:
-        heading = ['Router', 'Interface', 'IP Address',
-                   'Success on First Run', 'Success on Second Run']
-        table = PrettyTable(heading)
+    table = None
+
     for host in SETTINGS['routers']:
         if host['vendor'] not in VENDORS:
             raise AttributeError('Unsupported vendor: {}'.format(host['vendor']))
@@ -31,10 +29,13 @@ def main():
         NetworkElement = VENDORS[host['vendor']]
         with NetworkElement(host['hostname'], **connection_args) as rtr:
             if args.check == 'post' or args.post:
+                heading = ['Router', 'Interface', 'IP Address',
+                           'Success on First Run', 'Success on Second Run']
+                table = PrettyTable(heading)
                 table = post_check(rtr, table)
             elif args.check == 'pre' or args.pre:
                 update_arp_database(rtr)
-    if args.check == 'post' or args.post:
+    if table:
         print table
 
 
