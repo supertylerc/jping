@@ -78,7 +78,7 @@ class DBase(object):
                  '''
         self.query(schema)
 
-    def query(self, query, params=list()):
+    def query(self, query, params=list(), many=False):
         """Executes a single query against the database.
 
         :param query: SQL query to execute
@@ -90,7 +90,10 @@ class DBase(object):
         """
         with self._connection:
             cursor = self._connection.cursor()
-            return cursor.execute(query, params)
+            if many:
+                return cursor.executemany(query, params)
+            else:
+                return cursor.execute(query, params)
 
     def close(self):
         """Closes the SQLite3 connection
